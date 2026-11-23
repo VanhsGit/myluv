@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fff0f5" />
+    <title>Một câu hỏi nhỏ xíu 💗</title>
+    <style>
+      :root {
+        --pink: #ff6f9f;
+        --pink-dark: #e94d83;
+        --cream: #fffaf4;
+        --ink: #493b46;
+        --muted: #887985;
+        --yellow: #ffe7a3;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        overflow-x: hidden;
+        display: grid;
+        place-items: center;
+        padding: 24px 14px;
+        color: var(--ink);
+        font-family: ui-rounded, 'Segoe UI', system-ui, sans-serif;
+        background: radial-gradient(circle at 12% 15%, #ffe1eb 0 8%, transparent 8.5%), radial-gradient(circle at 88% 82%, #ffe9c8 0 10%, transparent 10.5%), linear-gradient(135deg, #fff5f8, #fff9ed);
+      }
+      .sparkle {
+        position: fixed;
+        pointer-events: none;
+        opacity: 0.55;
+        animation: float 7s ease-in-out infinite;
+      }
+      .s1 {
+        top: 8%;
+        left: 8%;
+        font-size: 28px;
+      }
+      .s2 {
+        right: 8%;
+        top: 17%;
+        font-size: 34px;
+        animation-delay: -2s;
+      }
+      .s3 {
+        left: 12%;
+        bottom: 10%;
+        font-size: 32px;
+        animation-delay: -4s;
+      }
+      .s4 {
+        right: 12%;
+        bottom: 12%;
+        font-size: 25px;
+      }
+      @keyframes float {
+        50% {
+          transform: translateY(-18px) rotate(12deg);
+        }
+      }
+      .card {
+        width: min(100%, 540px);
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: clamp(22px, 5vw, 38px);
+        border: 3px solid #fff;
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow:
+          0 18px 55px rgba(199, 105, 139, 0.16),
+          0 4px 0 #ffd8e5;
+      }
+      .tag {
+        display: inline-block;
+        padding: 7px 13px;
+        border-radius: 999px;
+        color: #a64d70;
+        background: #fff0f5;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 16px 0 8px;
+        font-size: clamp(27px, 6vw, 39px);
+        line-height: 1.15;
+      }
+      .subtitle {
+        margin: 0 auto 18px;
+        color: var(--muted);
+        line-height: 1.6;
+        max-width: 390px;
+      }
+      .meme-frame {
+        width: min(100%, 300px);
+        height: 205px;
+        margin: 0 auto 16px;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        border-radius: 22px;
+        background: #fff0f5;
+        border: 3px solid #ffe0ea;
+        position: relative;
+      }
+      .meme-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .meme-fallback {
+        font-size: 88px;
+        line-height: 1;
+      }
+      .caption {
+        display: inline-block;
+        max-width: 100%;
+        margin: 0 auto 18px;
+        padding: 10px 15px;
+        border-radius: 14px;
+        background: #fff7df;
+        color: #765c2a;
+        font-weight: 750;
+        transform: rotate(-1deg);
+        min-height: 42px;
+      }
+      .question {
+        font-size: clamp(19px, 4.5vw, 23px);
+        font-weight: 850;
+        margin: 6px 0 18px;
+      }
+      .button-zone {
+        min-height: 66px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        position: relative;
+        padding: 4px;
+      }
+      button {
+        border: 0;
+        border-radius: 999px;
+        padding: 13px 23px;
+        min-height: 48px;
+        font: inherit;
+        font-weight: 850;
+        cursor: pointer;
+        touch-action: manipulation;
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease,
+          background 0.18s ease;
+      }
+      button:focus-visible {
+        outline: 4px solid #f7b5cb;
+        outline-offset: 3px;
+      }
+      #yesBtn {
+        color: white;
+        background: linear-gradient(135deg, #ff78a5, #ed4f86);
+        box-shadow: 0 6px 0 #d83d73;
+      }
+      #yesBtn:hover {
+        transform: translateY(-2px) scale(1.04);
+      }
+      #noBtn {
+        color: #705e69;
+        background: #f2edf0;
+        box-shadow: 0 5px 0 #ddd2d9;
+        position: relative;
+      }
+      #noBtn:hover {
+        background: #eae1e7;
+      }
+      .tiny-note {
+        margin: 17px 0 0;
+        font-size: 12px;
+        color: #a18e99;
+      }
+      .counter {
+        font-size: 12px;
+        color: #bd7b94;
+        margin-top: 12px;
+        min-height: 18px;
+      }
+      .success {
+        display: none;
+        animation: pop 0.55s cubic-bezier(0.2, 1.5, 0.5, 1) both;
+      }
+      .success.show {
+        display: block;
+      }
+      @keyframes pop {
+        from {
+          opacity: 0;
+          transform: scale(0.75);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .success h2 {
+        color: var(--pink-dark);
+        font-size: clamp(27px, 6vw, 38px);
+        margin: 12px 0;
+      }
+      .success p {
+        line-height: 1.7;
+        color: var(--muted);
+      }
+      .success-emoji {
+        font-size: 76px;
+      }
+      .again {
+        margin-top: 10px;
+        color: #9a5270;
+        background: #ffeaf1;
+      }
+      .heart {
+        position: fixed;
+        z-index: 5;
+        bottom: -30px;
+        pointer-events: none;
+        animation: rise 3.2s ease-in forwards;
+        font-size: 22px;
+      }
+      @keyframes rise {
+        to {
+          transform: translateY(-110vh) rotate(25deg);
+          opacity: 0;
+        }
+      }
+      .confetti {
+        position: fixed;
+        z-index: 10;
+        top: -15px;
+        pointer-events: none;
+        animation: fall 2.7s linear forwards;
+        font-size: 20px;
+      }
+      @keyframes fall {
+        to {
+          transform: translateY(110vh) rotate(600deg);
+          opacity: 0.2;
+        }
+      }
+      @media (max-width: 420px) {
+        body {
+          padding: 14px 10px;
+        }
+        .card {
+          border-radius: 24px;
+        }
+        .meme-frame {
+          height: 185px;
+        }
+        .button-zone {
+          gap: 10px;
+        }
+        button {
+          padding: 12px 18px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <span class="sparkle s1">✨</span><span class="sparkle s2">💗</span> <span class="sparkle s3">🌷</span><span class="sparkle s4">🐾</span>
+
+    <main class="card">
+      <section id="proposal">
+        <span class="tag">📩 Thông báoo</span>
+        <h1>Cho anh hỏi xíuuu… 🥺</h1>
+
+        <div class="meme-frame">
+          <img
+            id="memeImg"
+            src="https://cataas.com/cat/gif?type=square"
+            alt="Mèo đang làm biểu cảm đáng yêu"
+            onerror="
+              this.style.display = 'none';
+              document.getElementById('memeFallback').style.display = 'block';
+            "
+          />
+          <div id="memeFallback" class="meme-fallback" style="display: none" aria-hidden="true">🐱💕</div>
+        </div>
+        <div class="caption" id="caption">Toi đã chuẩn bị tinh thần nghe câu trả lời thật lòng của emm <3</div>
+        <div class="question">Em làm người iu anh nhaaaaaaaa? 💖</div>
+
+        <div class="button-zone" id="buttonZone">
+          <button id="yesBtn" type="button">CÓ CHỨ! 💗</button>
+          <button id="noBtn" type="button">Hong nha 🙈</button>
+        </div>
+        <div class="counter" id="counter" aria-live="polite"></div>
+      </section>
+
+      <section class="success" id="success" aria-live="polite">
+        <div class="success-emoji">🐶💐🐱</div>
+        <h2>Thoi xongggg, Tôi đã bị chốt đơnn🥹🥹🥹🥹!!!</h2>
+        <div class="meme-frame">
+          <img src="https://cataas.com/cat/gif?type=square" alt="Mèo ăn mừng" onerror="this.style.display = 'none'" />
+          <div class="meme-fallback" aria-hidden="true">🥳💞</div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const noMessages = [
+        { button: 'Hong nha 🙈', caption: 'Mèo: Ủa? Mình nghe nhầm đúng không ta? 🐱' },
+        { button: 'Để suy nghĩ 🤔', caption: 'Cún đã ngồi chờ câu trả lời được 3 giây… 🐶' },
+        { button: 'Chưa chắc đâu 😗', caption: 'Một chiếc mèo đang dùng ánh mắt long lanh.' },
+        { button: 'Hong biết nữa 🫣', caption: 'Hội đồng thú cưng đề nghị bạn cân nhắc thêm ạ.' },
+        { button: 'Cho xin miếng bánh 🍰', caption: 'Có bánh rồi mình nói chuyện tiếp nha? 🥺' },
+        { button: 'Thôi màaa 💗', caption: 'Mèo đã bật chế độ đáng yêu cấp độ tối đa.' },
+        { button: 'Hay là… CÓ? 👀', caption: 'Khoan! Hình như nút CÓ đang gọi tên bạn đó!' }
+      ];
+
+      const noBtn = document.getElementById('noBtn');
+      const yesBtn = document.getElementById('yesBtn');
+      const caption = document.getElementById('caption');
+      const counter = document.getElementById('counter');
+      const zone = document.getElementById('buttonZone');
+      const proposal = document.getElementById('proposal');
+      const success = document.getElementById('success');
+      let noCount = 0;
+      let yesScale = 1;
+
+      function moveNoButton() {
+        noCount++;
+        const item = noMessages[(noCount - 1) % noMessages.length];
+        noBtn.textContent = item.button;
+        caption.textContent = item.caption;
+        counter.textContent = `Bạn đã từ chối ${noCount} lần — mèo vẫn tin vào phép màu 💞`;
+        yesScale = Math.min(1 + noCount * 0.045, 1.35);
+        yesBtn.style.transform = `scale(${yesScale})`;
+
+        // Trên điện thoại, nút chuyển vị trí ngay trong vùng nút để vẫn dễ nhìn.
+        const maxX = Math.max(18, zone.clientWidth / 2 - noBtn.offsetWidth / 2 - 8);
+        const maxY = 24;
+        const x = (Math.random() * 2 - 1) * maxX;
+        const y = (Math.random() * 2 - 1) * maxY;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        if (noCount % 2 === 0) spawnHearts(3);
+      }
+
+      // Desktop: nút né khi rê chuột. Điện thoại: né khi chạm.
+      noBtn.addEventListener('pointerenter', (event) => {
+        if (event.pointerType === 'mouse') moveNoButton();
+      });
+      noBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        moveNoButton();
+      });
+
+      yesBtn.addEventListener('click', () => {
+        proposal.style.display = 'none';
+        success.classList.add('show');
+        burstConfetti();
+        spawnHearts(24);
+      });
+
+      document.getElementById('againBtn').addEventListener('click', () => {
+        noCount = 0;
+        yesScale = 1;
+        noBtn.textContent = 'Hong nha 🙈';
+        noBtn.style.transform = '';
+        yesBtn.style.transform = '';
+        caption.textContent = 'Toi đã chuẩn bị tinh thần nghe câu trả lời cụa emm';
+        success.classList.remove('show');
+        proposal.style.display = 'block';
+      });
+
+      function spawnHearts(amount) {
+        const icons = ['💗', '💕', '💖', '🐾', '🌸'];
+        for (let i = 0; i < amount; i++) {
+          const el = document.createElement('span');
+          el.className = 'heart';
+          el.textContent = icons[Math.floor(Math.random() * icons.length)];
+          el.style.left = Math.random() * 100 + 'vw';
+          el.style.animationDelay = Math.random() * 0.8 + 's';
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 4200);
+        }
+      }
+
+      function burstConfetti() {
+        const icons = ['🎉', '💖', '🌸', '✨', '🐱', '🐶', '💕'];
+        for (let i = 0; i < 65; i++) {
+          const el = document.createElement('span');
+          el.className = 'confetti';
+          el.textContent = icons[Math.floor(Math.random() * icons.length)];
+          el.style.left = Math.random() * 100 + 'vw';
+          el.style.animationDelay = Math.random() * 1.2 + 's';
+          el.style.fontSize = 16 + Math.random() * 17 + 'px';
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 4200);
+        }
+      }
+    </script>
+  </body>
+</html>
